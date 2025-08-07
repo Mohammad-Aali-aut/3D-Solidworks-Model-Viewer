@@ -47,21 +47,21 @@
       height: 100%;
       pointer-events: none;
       z-index: 0;
-      background-image: radial-gradient(circle, rgba(255,255,255,0.3) 1px, transparent 1px);
-      background-size: 100px 100px;
-      opacity: 0;
+      background: 
+        radial-gradient(circle at 20% 30%, rgba(255, 255, 255, 0.1) 0%, transparent 40%),
+        radial-gradient(circle at 80% 70%, rgba(255, 255, 255, 0.08) 0%, transparent 30%),
+        radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.05) 0%, transparent 25%);
+      opacity: 0.4;
       transition: opacity 0.5s ease;
+      filter: blur(20px);
     }
 
     body.dark::before {
-      opacity: 0.2;
-    }
-
-    body.light::before {
-      background-image: radial-gradient(circle at 20% 30%, rgba(255, 255, 255, 0.2) 0%, transparent 70%),
-                        radial-gradient(circle at 80% 70%, rgba(255, 255, 255, 0.15) 0%, transparent 60%),
-                        radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.1) 0%, transparent 50%);
-      opacity: 0.4;
+      background: 
+        radial-gradient(circle at 10% 20%, rgba(255, 255, 255, 0.08) 0%, transparent 30%),
+        radial-gradient(circle at 80% 60%, rgba(255, 255, 255, 0.1) 0%, transparent 40%),
+        radial-gradient(circle at 40% 80%, rgba(255, 255, 255, 0.06) 0%, transparent 25%);
+      opacity: 0.3;
     }
 
     h1 {
