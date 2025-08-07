@@ -1,75 +1,115 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <title>Multi Model Viewer</title>
-    <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
-    <style>
-      body {
-        font-family: sans-serif;
-        background: linear-gradient(135deg, #ece9e6, #f0f0f0);
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        padding: 2rem;
+<head>
+  <meta charset="UTF-8" />
+  <title>My Awesome 3D Models</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet" />
+  <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+  <style>
+    /* Key animations */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
       }
-      model-viewer {
-        width: 80vw;
-        height: 70vh;
-        background: #fff;
-        border: 1px solid #ccc;
-        margin-top: 1rem;
-
-        box-shadow: 0 20px 40px rgba(0,0,0,0.25), 0 0 20px rgba(0,0,0,0.1);
-        border-radius: 12px;
-        overflow: hidden;
+      to {
+        opacity: 1;
+        transform: translateY(0);
       }
-      select {
-        padding: 0.5rem;
-        font-size: 1rem;
-      }
-    </style>
-  </head>
-  <body>
-    <h1>This is my Solidworks Model viewer. Also I love gay porn</h1>
+    }
 
-    <label for="modelSelect">Choose a model:</label>
-    <select id="modelSelect">
-      <option value="Practice4_1.glb">Model 4 I</option>
-      <option value="Practice5_1.glb">Model 5 hate</option>
-      <option value="Practice6_1.glb">Model 6 N's</option>
-    </select>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #ece9e6, #f0f0f0);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 2rem;
+      overflow-x: hidden;
+    }
 
-    <model-viewer 
-      id="viewer"
-      src="Practice4_1.glb"
-      alt="3D Model"
-      auto-rotate
-      camera-controls
-      background-color="#ffffff"
-      shadow-intensity="1"
-      shadow-softness="1"
-      environment-image="neutral">
-    </model-viewer>
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      animation: fadeInUp 1s ease-out forwards;
+      opacity: 0;
+      text-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    }
 
-    <script>
-      const viewer = document.getElementById('viewer');
-      const selector = document.getElementById('modelSelect');
+    label, select {
+      animation: fadeInUp 1.2s ease-out forwards;
+      opacity: 0;
+    }
 
-      selector.addEventListener('change', () => {
-        viewer.src = selector.value;
+    label {
+      margin-bottom: 0.5rem;
+    }
+
+    select {
+      padding: 0.5rem 1rem;
+      font-size: 1rem;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      background: #fff;
+    }
+
+    model-viewer {
+      width: 80vw;
+      height: 70vh;
+      background: #fff;
+      border: 1px solid #ccc;
+      margin-top: 2rem;
+
+      box-shadow: 0 20px 40px rgba(0,0,0,0.25), 0 0 20px rgba(0,0,0,0.1);
+      border-radius: 12px;
+      overflow: hidden;
+      opacity: 0;
+      transform: translateY(30px);
+      animation: fadeInUp 1.6s ease-out forwards;
+    }
+  </style>
+</head>
+<body>
+  <h1>3D Model Viewer</h1>
+
+  <label for="modelSelect">Choose a model:</label>
+  <select id="modelSelect">
+    <option value="Practice4_1.glb">Model 4 I</option>
+    <option value="Practice5_1.glb">Model 5 hate</option>
+    <option value="Practice6_1.glb">Model 6 N's</option>
+  </select>
+
+  <model-viewer 
+    id="viewer"
+    src="Practice4_1.glb"
+    alt="3D Model"
+    auto-rotate
+    camera-controls
+    background-color="#ffffff"
+    shadow-intensity="1"
+    shadow-softness="1"
+    environment-image="neutral">
+  </model-viewer>
+
+  <script>
+    const viewer = document.getElementById('viewer');
+    const selector = document.getElementById('modelSelect');
+
+    selector.addEventListener('change', () => {
+      viewer.src = selector.value;
+    });
+
+    viewer.addEventListener('load', () => {
+      const model = viewer.model;
+      if (!model) return;
+
+      model.traverse((node) => {
+        if (node.isMesh && node.material) {
+          node.material.color.set('#0077ff');
+        }
       });
-
-      viewer.addEventListener('load', () => {
-        const model = viewer.model;
-        if (!model) return;
-
-        model.traverse((node) => {
-          if (node.isMesh && node.material) {
-            node.material.color.set('#0077ff');
-          }
-        });
-      });
-    </script>
-  </body>
+    });
+  </script>
+</body>
 </html>
