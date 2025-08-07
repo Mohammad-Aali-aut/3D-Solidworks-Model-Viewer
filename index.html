@@ -7,7 +7,7 @@
     <style>
       body {
         font-family: sans-serif;
-        background: #f0f0f0;
+        background: linear-gradient(135deg, #ece9e6, #f0f0f0);
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -19,6 +19,10 @@
         background: #fff;
         border: 1px solid #ccc;
         margin-top: 1rem;
+
+        box-shadow: 0 20px 40px rgba(0,0,0,0.25), 0 0 20px rgba(0,0,0,0.1);
+        border-radius: 12px;
+        overflow: hidden;
       }
       select {
         padding: 0.5rem;
@@ -42,7 +46,10 @@
       alt="3D Model"
       auto-rotate
       camera-controls
-      background-color="#ffffff">
+      background-color="#ffffff"
+      shadow-intensity="1"
+      shadow-softness="1"
+      environment-image="neutral">
     </model-viewer>
 
     <script>
@@ -51,6 +58,18 @@
 
       selector.addEventListener('change', () => {
         viewer.src = selector.value;
+      });
+
+      viewer.addEventListener('load', () => {
+        const model = viewer.model;
+        if (!model) return;
+
+        model.traverse((node) => {
+          if (node.isMesh && node.material) {
+            // Apply a subtle blue tint
+            node.material.color.set('#0077ff');
+          }
+        });
       });
     </script>
   </body>
