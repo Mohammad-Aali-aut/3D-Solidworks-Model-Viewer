@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Multi Model Viewer</title>
+    <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+    <style>
+      body {
+        font-family: sans-serif;
+        background: #f0f0f0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 2rem;
+      }
+      model-viewer {
+        width: 80vw;
+        height: 70vh;
+        background: #fff;
+        border: 1px solid #ccc;
+        margin-top: 1rem;
+      }
+      select {
+        padding: 0.5rem;
+        font-size: 1rem;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>3D Model Viewer</h1>
+
+    <label for="modelSelect">Choose a model:</label>
+    <select id="modelSelect">
+      <option value="Practice4_1.glb">Engine Part</option>
+      <option value="Practice5_1.glb">Gear Assembly</option>
+      <option value="Practice6_1.glb">Bracket</option>
+    </select>
+
+    <model-viewer 
+      id="viewer"
+      src="Practice4_1.glb"
+      alt="3D Model"
+      auto-rotate
+      camera-controls
+      background-color="#ffffff">
+    </model-viewer>
+
+    <script>
+      const viewer = document.getElementById('viewer');
+      const selector = document.getElementById('modelSelect');
+
+      selector.addEventListener('change', () => {
+        viewer.src = selector.value;
+      });
+    </script>
+  </body>
+</html>
