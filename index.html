@@ -8,24 +8,17 @@
   <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
   <style>
     :root {
-      --bg-main: rgba(35, 0, 50, 0.8);
-      --bg-gradient: linear-gradient(135deg, #ece9f0, #f7f7ff);
       --text-color: #000000;
       --card-bg: #ffffff;
     }
 
     body.dark {
-      --bg-main: rgba(10, 10, 25, 0.9);
-      --bg-gradient: radial-gradient(circle, #0b0b23 0%, #000000 100%);
       --text-color: #f0f0f0;
       --card-bg: #1e1e2f;
     }
 
     body {
       font-family: 'Poppins', sans-serif;
-      background: var(--bg-gradient);
-      background-attachment: fixed;
-      background-size: cover;
       color: var(--text-color);
       margin: 0;
       padding: 2rem;
@@ -35,7 +28,14 @@
       align-items: center;
       min-height: 100vh;
       position: relative;
-      overflow: hidden;
+      overflow-x: hidden;
+      background: linear-gradient(135deg, #4b0082, #6a0dad, #9b30ff);
+      background-size: cover;
+      transition: background 0.5s ease;
+    }
+
+    body.dark {
+      background: radial-gradient(ellipse at bottom, #000000 0%, #0b0b23 100%);
     }
 
     body::before {
@@ -47,17 +47,14 @@
       height: 100%;
       pointer-events: none;
       z-index: 0;
-      background-image: 
-        radial-gradient(circle, rgba(255,255,255,0.3) 3px, transparent 4px),
-        radial-gradient(circle, rgba(255,255,255,0.2) 2px, transparent 3px),
-        radial-gradient(circle, rgba(255,255,255,0.1) 1.5px, transparent 2.5px);
+      background-image: radial-gradient(circle, rgba(255,255,255,0.3) 1px, transparent 1px);
       background-size: 100px 100px;
       opacity: 0;
       transition: opacity 0.5s ease;
     }
 
     body.dark::before {
-      opacity: 0.3;
+      opacity: 0.2;
     }
 
     body.light::before {
@@ -74,6 +71,20 @@
       text-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
       position: relative;
       z-index: 1;
+      animation: shadowUp 1s ease-in-out;
+    }
+
+    @keyframes shadowUp {
+      0% {
+        opacity: 0;
+        transform: translateY(20px);
+        text-shadow: none;
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+        text-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+      }
     }
 
     .theme-switch {
@@ -146,6 +157,18 @@
       box-shadow: 0 20px 40px rgba(0,0,0,0.35);
       position: relative;
       z-index: 1;
+      animation: fadeInUp 1s ease-out;
+    }
+
+    @keyframes fadeInUp {
+      0% {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
 
     .contact {
@@ -186,7 +209,7 @@
     <span class="moon">🌙</span>
   </div>
 
-  <h1>Super Professional Solidwork Models</h1>
+  <h1>3D Model Viewer</h1>
 
   <label for="modelSelect">Choose a model:</label>
   <select id="modelSelect">
